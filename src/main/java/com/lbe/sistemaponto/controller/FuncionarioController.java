@@ -54,7 +54,7 @@ public class FuncionarioController {
         return ResponseEntity.ok(new DadosDetalhamentoFuncionario(funcionario));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity inativar(@PathVariable Long id){
         var funcionario = repository.getReferenceById(id);
         funcionario.inativar();
