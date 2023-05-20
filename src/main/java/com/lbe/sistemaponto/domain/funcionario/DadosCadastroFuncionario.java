@@ -13,7 +13,9 @@ public record DadosCadastroFuncionario(
     String nome,
     @NotBlank
     @Email 
-    String email, 
+    String email,
+    @NotBlank 
+    String senha, 
     @NotBlank
     @Pattern(regexp = "\\d{10,11}")
     String telefone, 

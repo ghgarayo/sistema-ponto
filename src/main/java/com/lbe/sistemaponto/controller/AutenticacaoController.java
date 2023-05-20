@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lbe.sistemaponto.domain.usuario.DadosAutenticacao;
-import com.lbe.sistemaponto.domain.usuario.Usuario;
+import com.lbe.sistemaponto.domain.funcionario.Funcionario;
+import com.lbe.sistemaponto.infra.authentication.DadosAutenticacao;
 import com.lbe.sistemaponto.infra.security.DadosTokenJWT;
 import com.lbe.sistemaponto.infra.security.TokenService;
 
@@ -39,7 +39,7 @@ public class AutenticacaoController {
 
         var authToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authentication = manager.authenticate(authToken); // dispara o processo de autenticação.
-        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+        var tokenJWT = tokenService.gerarToken((Funcionario) authentication.getPrincipal());
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 

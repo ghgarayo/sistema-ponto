@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.lbe.sistemaponto.domain.usuario.Usuario;
+import com.lbe.sistemaponto.domain.funcionario.Funcionario;
 
 @Service
 public class TokenService {
@@ -18,13 +18,13 @@ public class TokenService {
   @Value("${api.security.token.secret}")
   private String secret;
 
-  public String gerarToken(Usuario usuario) {
+  public String gerarToken(Funcionario funcionario) {
     try {
       System.out.println(secret);
       var algoritmo = Algorithm.HMAC256(secret);
       return JWT.create()
           .withIssuer("LarBatistaEsperanca")
-          .withSubject(usuario.getLogin())
+          .withSubject(funcionario.getLogin())
           .withExpiresAt(dataExpiracao())
           .sign(algoritmo);
     } catch (JWTCreationException e) {
