@@ -10,6 +10,7 @@ public record DadosAtualizacaoFuncionario(
     String nome,
     String telefone,
     String email,
+    String senha,
     DadosEndereco endereco) {
 
 }

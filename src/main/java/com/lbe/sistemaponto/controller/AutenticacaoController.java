@@ -17,7 +17,7 @@ import com.lbe.sistemaponto.infra.security.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 public class AutenticacaoController {
 
     @Autowired

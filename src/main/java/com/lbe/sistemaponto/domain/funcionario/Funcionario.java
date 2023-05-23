@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.lbe.sistemaponto.domain.endereco.Endereco;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,9 +48,13 @@ public class Funcionario implements UserDetails{
     private Endereco endereco;
 
     private boolean ativo;
+    
+    @Column(name = "is_admin")
+    private boolean isAdmin;
 
     public Funcionario(DadosCadastroFuncionario dados){
         this.ativo = true;
+        this.isAdmin = false;
         this.nome = dados.nome();
         this.cpf = dados.cpf();
         this.rg = dados.rg();
@@ -68,6 +73,11 @@ public class Funcionario implements UserDetails{
 
         if (dados.email() != null) {
             this.email = dados.email();
+            this.login = dados.email();
+        }
+
+        if (dados.senha() != null) {
+            this.senha = dados.senha();
         }
 
         if (dados.telefone() != null) {

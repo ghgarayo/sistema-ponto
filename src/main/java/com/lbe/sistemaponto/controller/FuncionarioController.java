@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("funcionarios")
+@RequestMapping("/api/funcionarios")
 public class FuncionarioController {
 
     @Autowired
