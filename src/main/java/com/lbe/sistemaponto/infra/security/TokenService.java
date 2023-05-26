@@ -1,4 +1,5 @@
 package com.lbe.sistemaponto.infra.security;
+import com.lbe.sistemaponto.domain.funcionario.Funcionario;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.lbe.sistemaponto.domain.funcionario.Funcionario;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 @Service
 public class TokenService {
@@ -31,6 +32,22 @@ public class TokenService {
       throw new RuntimeException("erro ao gerrar token jwt", e);
     }
   }
+
+  public String getSubject(String tokenJWT){
+    try {
+        var algoritmo = Algorithm.HMAC256(secret);
+        return JWT.require(algoritmo)
+        .withIssuer("LarBatistaEsperanca")
+        .build()
+        .verify(tokenJWT)
+        .getSubject();
+    }
+    catch (JWTVerificationException e){
+        throw new RuntimeException("Token JWT inválido ou expirado!");
+    }
+
+}
+
 
   private Instant dataExpiracao() {
     /*
