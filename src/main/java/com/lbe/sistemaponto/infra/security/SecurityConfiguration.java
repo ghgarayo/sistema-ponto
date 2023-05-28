@@ -26,25 +26,27 @@ public class SecurityConfiguration {
      * configuracoes processos de autenticacao e autorizacao.
      */
 
-     @Bean
-     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-         /*
-          * Recebe o atributo http do tipo
-          * HttpSecurity que irá habilitar diferentes configurações e também
-          * o método build() para criação do objeto SecurityFilterChain que será
-          * retornado.
-          */
-         return http.csrf().disable()
-                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                 .and().authorizeHttpRequests()
-                 .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                 .anyRequest().authenticated()
-                 .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                 .build(); // Cria o objeto do tipo SecurityFilterChain
-     }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        /*
+         * Recebe o atributo http do tipo
+         * HttpSecurity que irá habilitar diferentes configurações e também
+         * o método build() para criação do objeto SecurityFilterChain que será
+         * retornado.
+         */
+        return http.cors().and()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeHttpRequests()
+                .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .anyRequest().authenticated()
+                .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build(); // Cria o objeto do tipo SecurityFilterChain
+    }
 
-    /* o @Bean validation serve para exportar uma classe para o Spring,
-     * fazendo com que ele consiga carregá-lo e realize sua injeção de 
+    /*
+     * o @Bean validation serve para exportar uma classe para o Spring,
+     * fazendo com que ele consiga carregá-lo e realize sua injeção de
      * dependencia em outras classes
      */
     @Bean
@@ -53,7 +55,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

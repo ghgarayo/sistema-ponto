@@ -21,10 +21,11 @@ public class TokenService {
 
   public String gerarToken(Funcionario funcionario) {
     try {
-      System.out.println(secret);
       var algoritmo = Algorithm.HMAC256(secret);
       return JWT.create()
           .withIssuer("LarBatistaEsperanca")
+          .withClaim("admin", funcionario.isAdmin())
+          .withClaim("nome", funcionario.getNome())
           .withSubject(funcionario.getLogin())
           .withExpiresAt(dataExpiracao())
           .sign(algoritmo);
